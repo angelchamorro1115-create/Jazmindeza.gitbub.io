@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jazmín 💌</title>
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#180a2a;
+      --card: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --accent:#ff5ca8;
+      --accent2:#7c5cff;
+      --good:#33d17a;
+      --warn:#ffcc00;
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 22px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(255,92,168,.25), transparent 55%),
+        radial-gradient(900px 600px at 80% 25%, rgba(124,92,255,.22), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .wrap{
+      width:min(980px, 100%);
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:-80px -80px auto auto;
+      width:220px;
+      height:220px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,92,168,.55), transparent 60%);
+      transform: rotate(18deg);
+      pointer-events:none;
+      filter: blur(0px);
+    }
+
+    .title{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height:1.02;
+      letter-spacing:-.02em;
+    }
+
+    .badge{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.07);
+      font-size:13px;
+      color:var(--muted);
+      display:flex;
+      gap:8px;
+      align-items:center;
+      white-space:nowrap;
+    }
+
+    .heart{
+      width:10px;height:10px;border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 6px rgba(255,92,168,.18);
+    }
+
+    .subtitle{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.5;
+      max-width: 56ch;
+    }
+
+    .name{
+      color:#fff;
+      background: linear-gradient(90deg, #fff, rgba(255,255,255,.65));
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .day{
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.16);
+      border-radius:16px;
+      padding:14px 14px 12px;
+    }
+    .day h3{
+      margin:0 0 6px;
+      font-size:14px;
+      color:rgba(255,255,255,.88);
+      letter-spacing:.02em;
+    }
+    .day .date{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      font-size:12px;
+      color:rgba(255,255,255,.82);
+    }
+    .dot{ width:8px;height:8px;border-radius:50%; background:var(--accent2); opacity:.9; }
+    .dot.good{ background:var(--good); }
+    .dot.warn{ background:var(--warn); }
+
+    .actions{
+      margin-top:18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    button, a.btn{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      text-decoration:none;
+      color: #0b1020;
+      background: linear-gradient(135deg, var(--accent), #ff8bd0);
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:700;
+      font-size:14px;
+      box-shadow: 0 14px 30px rgba(255,92,168,.22);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    button:hover, a.btn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+    button:active, a.btn:active{ transform: translateY(0px) scale(.99); }
+
+    .ghost{
+      background: rgba(255,255,255,.10);
+      color:rgba(255,255,255,.92);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:none;
+    }
+
+    .side .mini{
+      font-size:14px;
+      color:var(--muted);
+      line-height:1.6;
+      margin:6px 0 0;
+    }
+
+    .note{
+      margin-top:14px;
+      padding:14px;
+      border-radius:16px;
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(0,0,0,.16);
+      color:rgba(255,255,255,.84);
+      font-size:13px;
+      line-height:1.55;
+    }
+
+    .big-yes{
+      margin-top:14px;
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(51,209,122,.35);
+      background: rgba(51,209,122,.10);
+      display:none;
+    }
+    .big-yes h2{
+      margin:0 0 6px;
+      font-size:18px;
+    }
+    .big-yes p{ margin:0; color:rgba(255,255,255,.86); }
+
+    .footer{
+      margin-top:14px;
+      color:rgba(255,255,255,.55);
+      font-size:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    /* Confetti */
+    .confetti{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      display:none;
+    }
+    .c{
+      position:absolute;
+      width:10px;
+      height:14px;
+      opacity:.9;
+      border-radius:3px;
+      transform: translateY(-20px) rotate(0deg);
+      animation: fall 1.6s linear forwards;
+    }
+    @keyframes fall{
+      to{
+        transform: translateY(110vh) rotate(720deg);
+        opacity:1;
+      }
+    }
+
+    @media (max-width: 860px){
+      .wrap{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="confetti" id="confetti"></div>
+
+  <main class="wrap">
+    <!-- MAIN INVITE -->
+    <section class="card">
+      <div class="title">
+        <div>
+          <h1>Jazmín, <span class="name">¿pasas estos días conmigo?</span> 💗</h1>
+          <p class="subtitle">
+            Me encantaría compartir contigo <strong>viernes 13</strong>, <strong>sábado 14</strong> y <strong>domingo</strong>.
+            Sin presión: solo una invitación bonita… contigo sería especial.
+          </p>
+        </div>
+        <div class="badge" title="Invitación especial">
+          <span class="heart"></span>
+          13–15 feb ✨
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="day">
+          <h3>Viernes</h3>
+          <div class="date">13 de febrero</div>
+          <span class="pill"><span class="dot warn"></span> Plan tranqui</span>
+          <div style="height:8px"></div>
+          <span class="pill"><span class="dot"></span> Paseo + algo rico</span>
+        </div>
+
+        <div class="day">
+          <h3>Sábado</h3>
+          <div class="date">14 de febrero</div>
+          <span class="pill"><span class="dot good"></span> Día especial</span>
+          <div style="height:8px"></div>
+          <span class="pill"><span class="dot"></span> Detallito + risas</span>
+        </div>
+
+        <div class="day">
+          <h3>Domingo</h3>
+          <div class="date">15 de febrero</div>
+          <span class="pill"><span class="dot"></span> Plan relax</span>
+          <div style="height:8px"></div>
+          <span class="pill"><span class="dot good"></span> Tiempo juntos</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="yesBtn">Sí, quiero 💘</button>
+        <button class="ghost" id="maybeBtn">Puede ser 😊</button>
+        <button class="ghost" id="noBtn">Otro día 🙈</button>
+
+        <!-- Cambia el número de WhatsApp (con código país). Ej: +519XXXXXXXX -->
+        <a class="btn ghost" id="waBtn" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+      </div>
+
+      <div class="big-yes" id="bigYes">
+        <h2>¡Qué lindo! 🥰</h2>
+        <p>
+          Entonces yo me encargo de los detalles. Solo dime:
+          <strong>¿a qué hora te paso a ver?</strong>
+        </p>
+      </div>
+
+      <div class="footer">
+        <span>💡 Tip: puedes editar el texto dentro del archivo.</span>
+        <span>✨ Hecho con cariño.</span>
+      </div>
+    </section>
+
+    <!-- SIDE CARD -->
+    <aside class="card side">
+      <h2 style="margin:0;font-size:18px;">Mini plan (opcional)</h2>
+      <p class="mini">
+        Si te gusta, podemos hacerlo así (y si no, lo cambiamos a tu estilo):
+      </p>
+
+      <div class="note">
+        <strong>Viernes:</strong> caminata corta + algo caliente ☕<br/>
+        <strong>Sábado:</strong> una salida bonita + fotito juntos 📸<br/>
+        <strong>Domingo:</strong> helado o peli y conversar tranquilos 🍿
+      </div>
+
+      <div class="note" style="border-style:solid;">
+        <strong>Mensaje corto para ella:</strong><br/>
+        “Jazmín, quería invitarte a pasar conmigo el viernes 13, el sábado 14 y el domingo.
+        Me haría mucha ilusión. ¿Te animas?” 💗
+      </div>
+
+      <p class="mini" style="margin-top:14px;">
+        Si quieres, dime 2–3 cosas que le gustan (comida, música, lugares) y te lo personalizo aún más.
+      </p>
+    </aside>
+  </main>
+
+  <script>
+    const name = "Jazmín";
+    const yesBtn = document.getElementById("yesBtn");
+    const maybeBtn = document.getElementById("maybeBtn");
+    const noBtn = document.getElementById("noBtn");
+    const bigYes = document.getElementById("bigYes");
+    const confetti = document.getElementById("confetti");
+    const waBtn = document.getElementById("waBtn");
+
+    // EDITA AQUÍ tu número de WhatsApp (con código de país) y tu nombre
+    const myWhatsappNumber = "+519XXXXXXXX"; // <-- cámbialo
+    const myName = "Yo";
+
+    const message =
+`Hola ${name} 💗
+Quería invitarte a pasar conmigo el viernes 13, el sábado 14 y el domingo 15 de febrero.
+Me haría mucha ilusión compartir esos días contigo. ¿Te animas? ✨
+— ${myName}`;
+
+    waBtn.href = `https://wa.me/${myWhatsappNumber.replace(/\D/g,'')}?text=${encodeURIComponent(message)}`;
+
+    function popConfetti(){
+      confetti.style.display = "block";
+      confetti.innerHTML = "";
+      const pieces = 120;
+      for(let i=0;i<pieces;i++){
+        const el = document.createElement("div");
+        el.className = "c";
+        const left = Math.random()*100;
+        const delay = Math.random()*0.25;
+        const dur = 1.1 + Math.random()*1.0;
+        const size = 8 + Math.random()*8;
+        el.style.left = left + "vw";
+        el.style.top = (-10 - Math.random()*30) + "px";
+        el.style.width = size + "px";
+        el.style.height = (size*1.3) + "px";
+        el.style.animationDuration = dur + "s";
+        el.style.animationDelay = delay + "s";
+        el.style.background = Math.random() > 0.5
+          ? "rgba(255,92,168,.95)"
+          : "rgba(124,92,255,.95)";
+        confetti.appendChild(el);
+      }
+      setTimeout(()=>{ confetti.style.display="none"; }, 2300);
+    }
+
+    yesBtn.addEventListener("click", () => {
+      bigYes.style.display = "block";
+      popConfetti();
+      yesBtn.textContent = "¡Siii! 🥰";
+    });
+
+    maybeBtn.addEventListener("click", () => {
+      alert(`Perfecto 😊\nDime qué día te acomoda más, ${name}.`);
+    });
+
+    noBtn.addEventListener("click", () => {
+      alert(`Está bien 🙈\nOtro día será. Igual gracias por leerlo, ${name}.`);
+    });
+  </script>
+</body>
+</html>
